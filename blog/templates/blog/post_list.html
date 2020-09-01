@@ -1,6 +1,20 @@
-<html>
-<body>
-    <p>Hi there!</p>
-    <p>It works!</p>
-</body>
-</html>
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+	<div class="post">
+		{% for post in posts %}
+
+			{% if post.published_date %}
+			<div class="date">
+				{{ post.published_date }}
+			</div>
+			{% endif %}
+			<h2>{{ post.title}}</h2>
+			<p>{{ post.text|linebreaksbr }}</p>
+			<a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
+			<br>
+		{% endfor%}
+	</div>
+
+{% endblock%}
